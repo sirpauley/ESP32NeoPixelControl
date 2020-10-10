@@ -3,6 +3,8 @@
         {
             "name": "Win32",
             "includePath": [
+                "C:\\Program Files (x86)\\Arduino\\tools\\**",
+                "C:\\Program Files (x86)\\Arduino\\hardware\\arduino\\avr\\**",
                 "C:\\Users\\sirPa\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\**",
                 "C:\\Users\\sirPa\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.4\\**",
                 "D:\\pauley\\devOps\\Arduino\\libraries\\Adafruit_NeoPixel",
@@ -19,16 +21,13 @@
             "name": "arduino",
             "includePath": [
                 "${workspaceFolder}/**",
-                "C:\\Program Files (x86)\\Arduino\\hardware\\arduino\\avr\\cores\\arduino\\",
-                "C:\\Program Files (x86)\\Arduino\\hardware\\arduino\\avr\\libraries\\EEPROM\\",
-                "C:\\Program Files (x86)\\Arduino\\hardware\\arduino\\avr\\libraries\\HID\\",
-                "C:\\Program Files (x86)\\Arduino\\hardware\\arduino\\avr\\libraries\\SoftwareSerial\\",
-                "C:\\Program Files (x86)\\Arduino\\hardware\\arduino\\avr\\libraries\\SPI\\",
-                "C:\\Program Files (x86)\\Arduino\\hardware\\arduino\\avr\\libraries\\Wire\\",
-                "D:\\pauley\\devOps\\Arduino\\libraries\\Adafruit_NeoPixel",
-                "D:\\pauley\\devOps\\Arduino\\libraries\\ArduinoJson",
-                "D:\\pauley\\devOps\\Arduino\\libraries\\NeoPixelBus_by_Makuna",
-                "D:/pauley\\devOps\\Arduino\\libraries\\NeoPixelBus_by_Makuna\\src"
+                "C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/EEPROM/src",
+                "C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/HID/src",
+                "C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/SoftwareSerial/src",
+                "C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/SPI/src",
+                "C:/Program Files (x86)/Arduino/hardware/arduino/avr/libraries/Wire/src",
+                "D:/pauley/devOps/Arduino/libraries/NeoPixelBus_by_Makuna/src",
+                "D:/pauley/devOps/Arduino/libraries/ArduinoJson/src"
             ],
             "defines": [
                 "_DEBUG",

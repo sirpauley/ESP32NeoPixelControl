@@ -29,6 +29,7 @@ CRGB leds2[NUMPIXELS];
 uint8_t redMaster = 0;
 uint8_t greenMaster = 0;
 uint8_t blueMaster = 0;
+String modeSetting = "";
 
 int j = 0;
 
@@ -37,7 +38,6 @@ BluetoothSerial ESP_BT; //Object for Bluetooth
 int incoming;
 int LED_BUILTIN = 33;
 int FLASH_LAMP =  4;
-String modeSetting = "";
 
 void setup() {
   Serial.begin(115200); //Start Serial monitor in 115200
@@ -73,7 +73,7 @@ void led_white_on()
     leds[i] = CRGB::White;
   }
   delay(5);
-  FastLED.show();
+  showStrip();
 
   Serial.println("STRIP turned ON");
 }
@@ -84,7 +84,7 @@ void led_white_off()
     leds[i] = CRGB::Black;
   }
   delay(5);
-  FastLED.show();
+  showStrip();
 //  Serial.println("STRIP turned OFF");
 }
 
@@ -99,7 +99,7 @@ void setColors( int RED , int GREEN , int BLUE )
     int blue2 = 255 - BLUE;
     leds2[i].setRGB(red2, green2, blue2);
   }
-  FastLED.show();
+  showStrip();
 
   Serial.println("Colors set to");
   Serial.print("RED - ");Serial.println(RED);
@@ -115,13 +115,15 @@ void showStrip() {
 
 void setPixel(int Pixel, int red, int green, int blue) {
   leds[Pixel].setRGB(red, green, blue);
+//  leds2[Pixel].setRGB(red, green, blue);
 }
 
 void setAll(byte red, byte green, byte blue) {
   for(int i = 0; i < NUMPIXELS; i++ ) {
     leds[i].setRGB(red, green, blue);
+//    leds2[i].setRGB(red, green, blue);
   }
-  FastLED.show();
+  showStrip();
 }
 
 void RGBLoop(){
@@ -336,7 +338,7 @@ void RightToLeft(byte red, byte green, byte blue, int EyeSize, int SpeedDelay, i
   delay(ReturnDelay);
 }
 
-//ends here
+//well KITT ends here
 //
 
 void Twinkle(int red, int green, int blue, int Count, int SpeedDelay, boolean OnlyOne) {
@@ -392,13 +394,6 @@ void RunningLights(int red, int green, int blue, int WaveDelay) {
 
 //modes END here
 
-void colorMode(int red, int green, int blue, String modeSetting){
-  while(true){
-    if(modeSetting == "FadeInOut")
-      FadeInOut(red, green,blue);
-    }
-  }
-
 void loop() {
 
     // Allocate the JSON document
@@ -412,32 +407,27 @@ void loop() {
 
       String rgbCommand = ESP_BT.readString();
 
-      const size_t capacity = JSON_ARRAY_SIZE(1) + JSON_OBJECT_SIZE(3) + 20;
+      const size_t capacity = JSON_OBJECT_SIZE(4) + 40;
       DynamicJsonDocument RGB(capacity);
       
       String json = rgbCommand;
-//      const char* json = "{\"red\":255,\"green\":255,\"blue\":255}";
+//      const char* json = "{\"red\":255,\"green\":255,\"blue\":255,\"mode\":\"TwinkleRandom\"}";
       
       deserializeJson(RGB, json);
       
-      int red = RGB[0]["red"]; // 255
-      int green = RGB[0]["green"]; // 255
-      int blue = RGB[0]["blue"]; // 255
+      redMaster = RGB["red"]; // 255
+      greenMaster = RGB["green"]; // 255
+      blueMaster = RGB["blue"]; // 255
+      modeSetting = RGB["mode"].as<String>();
 
       Serial.println("input recieved:");
-      Serial.print("RED: ");Serial.println(red);
-      Serial.print("GREEN: ");Serial.println(green);
-      Serial.print("BLUE: ");Serial.println(blue);
-
-//      setColors(red,green,blue);
-//        colorMode(red,green,blue, "FadeInOut");
-        redMaster = red;
-        greenMaster = green;
-        blueMaster = blue;
-        modeSetting = "FadeInOut";
+      Serial.print("RED: ");Serial.println(redMaster);
+      Serial.print("GREEN: ");Serial.println(greenMaster);
+      Serial.print("BLUE: ");Serial.println(blueMaster);
+      Serial.print("MODE: ");Serial.println(modeSetting);
       
-      Serial.println(rgbCommand);
-      ESP_BT.println(rgbCommand);
+      Serial.print("rgbCommand: ");Serial.println(rgbCommand);
+      ESP_BT.print("rgbCommand: ");ESP_BT.println(rgbCommand);
       }
 
 //modeSetting can be == to the following
