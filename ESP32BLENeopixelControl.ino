@@ -20,7 +20,7 @@
 //control neoPixel through bluetooth
 
 // How many NeoPixels are attached to the Arduino?
-#define NUMPIXELS      8
+#define NUMPIXELS      32
 
 // Define the array of leds
 CRGB leds[NUMPIXELS];
@@ -115,13 +115,13 @@ void showStrip() {
 
 void setPixel(int Pixel, int red, int green, int blue) {
   leds[Pixel].setRGB(red, green, blue);
-//  leds2[Pixel].setRGB(red, green, blue);
+  leds2[Pixel].setRGB(red, green, blue);
 }
 
 void setAll(byte red, byte green, byte blue) {
   for(int i = 0; i < NUMPIXELS; i++ ) {
     leds[i].setRGB(red, green, blue);
-//    leds2[i].setRGB(red, green, blue);
+    leds2[i].setRGB(red, green, blue);
   }
   showStrip();
 }
@@ -231,6 +231,7 @@ void CylonBounce(int red, int green, int blue, int EyeSize, int SpeedDelay, int 
     setPixel(i+j, red, green, blue);
     for(int j = 1; j <= EyeSize; j++) {
       leds[i+j].setRGB(red, green, blue);
+      leds2[i+j].setRGB(red, green, blue);
     }
     setPixel(i+j, red, green, blue);
     showStrip();
